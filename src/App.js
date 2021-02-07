@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
+import Main from './Components/Main'
+import './App.css'
+import './Components/Main.css'
+import PageLoader from './Components/PageLoader'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+
+state = {
+  
+  isLoading : true
+}
+
+componentDidMount() {
+  setTimeout(() => { this.fetchData() }, 1200);
+}
+
+fetchData = ()=>{
+  this.setState({isLoading : false})
+}
+
+  render() {
+    return (
+      <div>
+       {this.state.isLoading ? (
+         <div><PageLoader/></div>):
+         (
+
+          <div className="container">
+            <Main/>
+          <div class="main-menu" id="main-menu">
+          <ul class="main-menu-list">
+            <li><a><Link to="/home"> Home </Link></a></li>
+            <li><a><Link to="/resume"> Resume </Link> </a></li>
+            <li><a><Link to="/skills"> Skills </Link></a></li>
+            <li><a><Link to="/portfolio"> Portfolio </Link></a></li>
+            <li><a><Link to="/blog"> Blog </Link></a></li>
+            <li><a> <Link to="/contact"> Contact </Link></a></li>
+        </ul>
+        
+        </div>
+        </div>
+         )
+       }
+     
+      </div>
+    )
+  }
 }
 
 export default App;
